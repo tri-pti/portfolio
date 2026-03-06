@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Favicon -->
+<link rel="icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="favicon-180.png">
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Primary SEO -->
+  <title>Tripti Patel | Software Developer & AI Enthusiast</title>
+  <meta name="description" content="Tripti Patel is a Software Developer and AI Enthusiast specializing in full stack development, AI-powered applications, and accessibility-focused projects like Sign Language Interpreters." />
+  <meta name="keywords" content="Tripti Patel, Software Developer, AI Engineer, Full Stack Developer, Web Developer, Machine Learning, Portfolio" />
+  <meta name="author" content="Tripti Patel" />
+
+  <!-- Open Graph (LinkedIn, WhatsApp, Facebook) -->
+  <meta property="og:title" content="Tripti Patel | Software Developer & AI Enthusiast" />
+  <meta property="og:description" content="Portfolio of Tripti Patel showcasing software development, AI projects, and professional experience." />
+  <meta property="og:url" content="https://tri-pti.github.io/tripti-portfolio/" />
+<meta property="og:image" content="https://tri-pti.github.io/tripti-portfolio/images/preview.png" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Tripti Patel | Software Developer" />
+  <meta name="twitter:description" content="Explore my software development and AI projects." />
+  <meta name="twitter:image" content="https://your-domain.com/images/preview.png" />
+
+
+  <!-- Theme Color (Mobile browsers) -->
+  <meta name="theme-color" content="#020617" />
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- 3D Background -->
+<canvas id="bg"></canvas>
+
+  <!-- Navbar -->
+  <nav>
+    <h2>Tripti Patel</h2>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section id="home" class="hero">
+    <div class="hero-text">
+      <h1>Hi, I'm <span>Tripti Patel</span></h1>
+      <h3><span id="typing"></span></h3>
+      <p>B.Tech CSE (AI) | Full Stack Developer | AI Research</p>
+
+      <div class="hero-buttons">
+        <a href="#contact" class="btn">Hire Me</a>
+        <a href="Tripti_Patel_Resume.pdf" class="btn btn-outline" download>
+          📄 Download Resume
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <h2>About Me</h2>
+    <p>
+      I am a Computer Science Engineering student specializing in Artificial Intelligence.
+    I’m a developer who enjoys learning by building — and breaking things until they work.
+  Currently exploring web development, AI, and anything that sparks curiosity.
+    </p>
+    <p>
+      Currently pursuing B.Tech (AI) with an SPI of <strong>8.11</strong>.
+    </p>
+  </section>
+
+<section id="sorting">
+  <h2>Algorithms, Visualized 🔍</h2>
+  <p class="section-subtitle">
+    Watching logic turn into motion.
+  </p>
+
+  <div class="sort-container" id="sortContainer"></div>
+</section>
+
+  <!-- Skills -->
+  <section id="skills">
+    <h2>Skills</h2>
+
+    <div class="skills-container">
+      <div class="skill">
+        <span>HTML / CSS / JavaScript</span>
+        <div class="bar"><div data-width="80%"></div></div>
+      </div>
+
+      <div class="skill">
+        <span>Python</span>
+        <div class="bar"><div data-width="65%"></div></div>
+      </div>
+
+      <div class="skill">
+        <span>C / C++</span>
+        <div class="bar"><div data-width="80%"></div></div>
+      </div>
+
+      <div class="skill">
+        <span>SQL / R</span>
+        <div class="bar"><div data-width="75%"></div></div>
+      </div>
+
+      <div class="skill">
+        <span>Blender 3D / Power BI</span>
+        <div class="bar"><div data-width="70%"></div></div>
+      </div>
+
+      <div class="skill">
+        <span>Git / Github</span>
+        <div class="bar"><div data-width="50%"></div></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- NEW CERTIFICATIONS SECTION START -->
+  <section id="certifications">
+    <h2>Certifications 🏆</h2>
+    <p class="section-subtitle">
+      Milestones in my learning journey.
+    </p>
+
+    <div class="cert-grid">
+      <!-- Certification 1 -->
+      <div class="cert-card"  onclick="openModal('images/CV.png', 'Computer Vision - NPTEL')">
+    <img src="images/CV.png" alt="Computer Vision" class="cert-img">
+        <h3>Computer Vision</h3>
+        <p class="cert-issuer">NPTEL</p>
+        <p class="cert-date">Issued: 2025</p>
+      </div>
+
+      <!-- Certification 2 -->
+    <div class="cert-card"  onclick="openModal('images/mis.png', 'Management Information System - NPTEL')">
+    <img src="images/mis.png" alt="MIS" class="cert-img">
+        <h3>Management Information System</h3>
+        <p class="cert-issuer">NPTEL</p>
+        <p class="cert-date">Issued: 2025</p>
+      </div>
+
+    <!-- Certification 3 -->
+    <div class="cert-card" onclick="openModal('images/Interns.png', 'Internship - Placify')">
+      <img src="images/Interns.png" 
+           alt="Placify Internship" 
+           class="cert-img">
+      <h3>Internship</h3>
+      <p class="cert-issuer">Placify </p>
+      <p class="cert-date">Issued: 2025</p>
+    </div>
+
+    <!-- Certification 4 -->
+    <div class="cert-card" onclick="openModal('images/TC.png', 'Training - Placify')">
+      <img src="images/TC.png" 
+           alt="Placify Training" 
+           class="cert-img">
+      <h3>Training</h3>
+      <p class="cert-issuer">Placify </p>
+      <p class="cert-date">Issued: 2025</p>
+    </div>
+
+ <!-- Certification 5 -->
+    <div class="cert-card" onclick="openModal('images/AGARC Lab.png', 'Internship - IIT (BHU)')">
+      <img src="images/AGARC Lab.png" 
+           alt="AGARC Lab" 
+           class="cert-img">
+      <h3>Internship</h3>
+      <p class="cert-issuer">IIT (BHU) </p>
+      <p class="cert-date">Issued: 2025</p>
+    </div>
+
+ <!-- Certification 6 -->
+    <div class="cert-card" onclick="openModal('images/Virtual.png', 'Internship - IIT (BHU)')">
+      <img src="images/Virtual.png" 
+           alt="Virtual Sign Language" 
+           class="cert-img">
+      <h3>Internship</h3>
+      <p class="cert-issuer">IIT (BHU) </p>
+      <p class="cert-date">Issued: 2025</p>
+    </div>
+
+<!-- Certification 7 -->
+    <div class="cert-card" onclick="openModal('images/Intern.png', 'Internship - Saiket')">
+      <img src="images/Intern.png" 
+           alt="Internship" 
+           class="cert-img">
+      <h3>Internship</h3>
+      <p class="cert-issuer">Saiket</p>
+      <p class="cert-date">Issued: 2025</p>
+    </div>
+
+<!-- Certification 8 -->
+    <div class="cert-card" onclick="openModal('images/CSS(Basic).png', 'Certification - HackerRank')">
+      <img src="images/CSS(Basic).png" 
+           alt="CSS basic" 
+           class="cert-img">
+      <h3>CSS (Basic)</h3>
+      <p class="cert-issuer">Hackerrank</p>
+      <p class="cert-date">Issued: 2026</p>
+    </div>
+<!-- Certification 9 -->
+    <div class="cert-card" onclick="openModal('images/SQL(Basic).png', 'Certification - HackerRank')">
+      <img src="images/SQL(Basic).png" 
+           alt="SQL basic" 
+           class="cert-img">
+      <h3>SQL (Basic)</h3>
+      <p class="cert-issuer">Hackerrank</p>
+      <p class="cert-date">Issued: 2026</p>
+    </div>
+    <!-- Certification 10 -->
+    <div class="cert-card" onclick="openModal('images/PC.png', 'Participation - IIT (BHU)')">
+      <img src="images/PC.png" 
+           alt="Participation" 
+           class="cert-img">
+      <h3>Participation Certificate</h3>
+      <p class="cert-issuer">ICAT </p>
+      <p class="cert-date">Issued: 2026</p>
+    </div>
+  </div>
+</section>
+
+  <!-- Lightbox Modal for Certifications -->
+<div id="cert-modal" class="modal">
+  <span class="close-btn" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="modal-img">
+  <div id="modal-caption"></div>
+</div>
+
+  <!-- Projects -->
+ <section id="projects">
+  <h2>Things I’ve Built 💻</h2>
+  <p class="section-subtitle">
+  A few projects where curiosity turned into code.
+</p>
+
+  <!-- Carousel -->
+<div class="carousel" data-index="0">
+
+  <div class="slide active">
+    <img src="images/project1.png" alt="Blood Donor Project">
+    <div class="overlay-title">🩸 Blood Donor Registration System</div>
+  </div>
+
+  <div class="slide">
+    <img src="images/project2.png" alt="Yatra Sangwari Project">
+    <div class="overlay-title">🌍 Yatra Sangwari – Travel Companion</div>
+  </div>
+
+  <div class="slide">
+    <img src="images/project3.png" alt="Sign Language Project">
+    <div class="overlay-title">🤟 Sign Language Interpreter</div>
+  </div>
+
+  <button class="prev" onclick="prevSlide()">❮</button>
+  <button class="next" onclick="nextSlide()">❯</button>
+
+</div>
+
+
+  <!-- Project Descriptions -->
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <h3>🩸 Blood Donor Registration System</h3>
+      <p>User-friendly system simplifying blood donor search.</p>
+      <p><strong>Tech:</strong> HTML, CSS, JavaScript, SQL</p>
+    </div>
+
+    <div class="project-card">
+      <h3>🌍 Yatra Sangwari</h3>
+      <p>Tourism website showcasing Chhattisgarh attractions.</p>
+      <p><strong>Tech:</strong> HTML, CSS, JavaScript</p>
+      <p class="micro-note">Built while learning — and learning while building.</p>
+
+    </div>
+
+    <div class="project-card">
+      <h3>🤟 Sign Language Interpreter</h3>
+      <p>AI-based system converting voice/text to sign language avatars.</p>
+      <p><strong>Tech:</strong> Python, AI/ML, 3D Avatar</p>
+      <p class="micro-note">This project taught me more than any tutorial.</p>
+
+    </div>
+
+  </div>
+</section>
+
+
+
+  <!-- Experience -->
+  <section id="experience">
+    <h2>Experience</h2>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <h3>IIT (BHU) – Research Intern</h3>
+        <span>Jan 2025 – Jun 2025</span>
+        <p>Developed AI-powered Sign Language Interpreter.</p>
+      </div>
+
+      <div class="timeline-item">
+        <h3>Placify Technologies – Full Stack Intern</h3>
+        <span>Jan 2024 – Mar 2025</span>
+        <p>Worked on full stack web applications.</p>
+      </div>
+
+      <div class="timeline-item">
+        <h3>Saiket Systems – Software Intern</h3>
+        <span>Oct 2025 – Nov 2025</span>
+        <p>Contributed to software development tasks.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>Email: <strong>triptipatel837@gmail.com</strong></p>
+    <p>Location: Raipur, Chhattisgarh</p>
+  <form id="contact-form">
+    <p class="micro-note">
+  Have an idea, opportunity, or just want to say hi?  
+  My inbox is always open.
+</p>
+    <input type="text" name="from_name" placeholder="Your Name" required>
+    <input type="email" name="from_email" placeholder="Your Email" required>
+    <textarea name="message" placeholder="Your Message" required></textarea>
+
+    <button type="submit" class="btn">Send Message</button>
+    <p id="form-status"></p>
+  </form>
+  </section>
+
+  <footer>
+    <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+/>
+<div class="social-links">
+  <a href="https://www.linkedin.com/in/tripti-patel-36609430b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" aria-label="LinkedIn">
+    <i class="fa-brands fa-linkedin"></i>
+  </a>
+
+  <a href="https://github.com/tri-pti" target="_blank" aria-label="GitHub">
+    <i class="fab fa-github"></i>
+  </a>
+
+  <a href="https://leetcode.com/u/6q4TAASHrl/" target="_blank" aria-label="LeetCode">
+    <i class="fas fa-code"></i>
+  </a>
+
+  <a href="https://www.hackerrank.com/profile/triptipatel837" target="_blank" aria-label="HackerRank">
+    <i class="fab fa-hackerrank"></i>
+  </a>
+
+  <a href="https://www.instagram.com/_.triipti_?igsh=MWVlc3ZneHBob3czcQ==" target="_blank" aria-label="Instagram">
+    <i class="fab fa-instagram"></i>
+  </a>
+  <a href="https://pin.it/47EOzZNYB" target="_blank" aria-label="Pinterest">
+    <i class="fa-brands fa-pinterest"></i>
+  </a>
+</div>
+
+
+    <p>© 2026 Tripti Patel | Software Developer</p>
+    <p class="footer-note">
+  Thanks for scrolling this far — you’re awesome 🙌
+</p>
+
+  </footer>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+
+
+  <!-- JS -->
+   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+  <script src="script.js"></script>
+  
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Tripti Patel",
+  "jobTitle": "Software Developer",
+  "url": "https://your-domain.com",
+  "sameAs": [
+    "https://www.linkedin.com/in/tripti-patel-3660940b"
+  ]
+}
+</script>
+
+</body>
+</html>
