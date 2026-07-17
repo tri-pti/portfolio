@@ -34,8 +34,10 @@ geometry.setAttribute(
 );
 
 const material = new THREE.PointsMaterial({
-  color: 0x38bdf8,
-  size: 0.6
+  color: 0x0d9488,
+  size: 0.5,
+  transparent: true,
+  opacity: 0.35
 });
 
 const particles = new THREE.Points(geometry, material);
@@ -94,6 +96,27 @@ const observer = new IntersectionObserver(
 
 sections.forEach(section => observer.observe(section));
 
+/* Nav active-link highlighting */
+const navLinks = document.querySelectorAll("nav a[href^='#']");
+
+const navObserver = new IntersectionObserver(
+  entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute("id");
+        navLinks.forEach(link => {
+          link.classList.toggle("active", link.getAttribute("href") === `#${id}`);
+        });
+      }
+    });
+  },
+  { rootMargin: "-50% 0px -50% 0px" }
+);
+
+sections.forEach(section => {
+  if (section.id) navObserver.observe(section);
+});
+
 /* Skill Bar Animation */
 const skillObserver = new IntersectionObserver(
   entries => {
@@ -133,59 +156,6 @@ setInterval(() => {
 }, 3000);
 
 
-const slides = document.querySelectorAll(".slide");
-let currentIndex = 0;
-
-function showSlide(index) {
-  slides.forEach(slide => slide.classList.remove("active"));
-  slides[index].classList.add("active");
-}
-
-function nextSlide() {
-  currentIndex = (currentIndex + 1) % slides.length;
-  showSlide(currentIndex);
-}
-
-function prevSlide() {
-  currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-  showSlide(currentIndex);
-}
-
-/* ===== MOBILE SWIPE SUPPORT ===== */
-
-let startX = 0;
-let endX = 0;
-
-const carousel = document.querySelector(".carousel");
-
-// Touch start
-carousel.addEventListener("touchstart", (e) => {
-  startX = e.touches[0].clientX;
-});
-
-// Touch move
-carousel.addEventListener("touchmove", (e) => {
-  endX = e.touches[0].clientX;
-});
-
-// Touch end
-carousel.addEventListener("touchend", () => {
-  const swipeDistance = endX - startX;
-
-  // Minimum swipe distance to trigger slide
-  if (Math.abs(swipeDistance) > 50) {
-    if (swipeDistance < 0) {
-      nextSlide(); // swipe left
-    } else {
-      prevSlide(); // swipe right
-    }
-  }
-
-  // Reset values
-  startX = 0;
-  endX = 0;
-});
-
 (function () {
   emailjs.init("Y4cY7squwR7yp-80SC"); // replace
 })();
@@ -208,17 +178,43 @@ document.getElementById("contact-form").addEventListener("submit", function (e) 
 });
 
 
-// ===== Sorting Algorithm Visualization (Bubble Sort) =====
+// ===== Sorting Algorithm Visualization =====
 
 const container = document.getElementById("sortContainer");
 
 if (container) {
   const BAR_COUNT = 40;
+  const algoSelect = document.getElementById("algo-select");
+  const shuffleBtn = document.getElementById("shuffle-btn");
+  const speedButtons = document.querySelectorAll(".speed-buttons button");
+  const statComparisons = document.getElementById("stat-comparisons");
+  const statSwaps = document.getElementById("stat-swaps");
+  const statTime = document.getElementById("stat-time");
+  const sortStatus = document.getElementById("sort-status");
+
   let values = [];
+  let bars = [];
+  let delay = 70;
+  let comparisons = 0;
+  let swaps = 0;
+  let runId = 0; // bumped on every new run so stale async loops stop themselves
+
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  function updateStats() {
+    statComparisons.textContent = comparisons;
+    statSwaps.textContent = swaps;
+  }
 
   function generateBars() {
     container.innerHTML = "";
     values = [];
+    comparisons = 0;
+    swaps = 0;
+    sortStatus.textContent = "";
+    updateStats();
 
     for (let i = 0; i < BAR_COUNT; i++) {
       const value = Math.floor(Math.random() * 200) + 20;
@@ -229,40 +225,123 @@ if (container) {
       bar.style.height = `${value}px`;
       container.appendChild(bar);
     }
+    bars = document.querySelectorAll(".sort-bar");
   }
 
-  async function bubbleSort() {
-    const bars = document.querySelectorAll(".sort-bar");
+  async function markCompare(i, j) {
+    comparisons++;
+    updateStats();
+    bars[i].classList.add("active");
+    bars[j].classList.add("active");
+    await sleep(delay);
+    bars[i].classList.remove("active");
+    bars[j].classList.remove("active");
+  }
 
+  function swapValues(i, j) {
+    swaps++;
+    [values[i], values[j]] = [values[j], values[i]];
+    bars[i].style.height = `${values[i]}px`;
+    bars[j].style.height = `${values[j]}px`;
+    updateStats();
+  }
+
+  async function bubbleSort(id) {
     for (let i = 0; i < values.length; i++) {
       for (let j = 0; j < values.length - i - 1; j++) {
-        bars[j].classList.add("active");
-        bars[j + 1].classList.add("active");
-
-        await sleep(80);
-
-        if (values[j] > values[j + 1]) {
-          [values[j], values[j + 1]] = [values[j + 1], values[j]];
-
-          bars[j].style.height = `${values[j]}px`;
-          bars[j + 1].style.height = `${values[j + 1]}px`;
-        }
-
-        bars[j].classList.remove("active");
-        bars[j + 1].classList.remove("active");
+        await markCompare(j, j + 1);
+        if (id !== runId) return;
+        if (values[j] > values[j + 1]) swapValues(j, j + 1);
       }
-
       bars[values.length - i - 1].classList.add("sorted");
     }
   }
 
-  function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+  async function selectionSort(id) {
+    for (let i = 0; i < values.length; i++) {
+      let minIdx = i;
+      for (let j = i + 1; j < values.length; j++) {
+        await markCompare(minIdx, j);
+        if (id !== runId) return;
+        if (values[j] < values[minIdx]) minIdx = j;
+      }
+      if (minIdx !== i) swapValues(i, minIdx);
+      bars[i].classList.add("sorted");
+    }
   }
 
+  async function insertionSort(id) {
+    for (let i = 1; i < values.length; i++) {
+      let j = i;
+      while (j > 0) {
+        await markCompare(j - 1, j);
+        if (id !== runId) return;
+        if (values[j - 1] > values[j]) {
+          swapValues(j - 1, j);
+          j--;
+        } else {
+          break;
+        }
+      }
+    }
+    bars.forEach(bar => bar.classList.add("sorted"));
+  }
+
+  async function quickSort(id, lo = 0, hi = values.length - 1) {
+    if (lo > hi) return;
+    if (lo === hi) {
+      bars[lo].classList.add("sorted");
+      return;
+    }
+
+    const pivot = values[hi];
+    let p = lo;
+    for (let k = lo; k < hi; k++) {
+      await markCompare(k, hi);
+      if (id !== runId) return;
+      if (values[k] < pivot) {
+        if (k !== p) swapValues(k, p);
+        p++;
+      }
+    }
+    swapValues(p, hi);
+    bars[p].classList.add("sorted");
+
+    await quickSort(id, lo, p - 1);
+    if (id !== runId) return;
+    await quickSort(id, p + 1, hi);
+  }
+
+  async function runSort() {
+    const id = ++runId;
+    generateBars();
+    await sleep(150); // let the fresh bars render before sorting kicks in
+    const start = performance.now();
+
+    const algo = algoSelect.value;
+    if (algo === "bubble") await bubbleSort(id);
+    else if (algo === "selection") await selectionSort(id);
+    else if (algo === "insertion") await insertionSort(id);
+    else if (algo === "quick") await quickSort(id);
+
+    if (id !== runId) return;
+    const elapsed = ((performance.now() - start) / 1000).toFixed(2);
+    statTime.textContent = `${elapsed}s`;
+    sortStatus.textContent = `🎉 Sorted in ${comparisons} comparisons and ${swaps} swaps — ${elapsed}s`;
+  }
+
+  algoSelect.addEventListener("change", runSort);
+  shuffleBtn.addEventListener("click", runSort);
+  speedButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      speedButtons.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      delay = Number(btn.dataset.speed);
+    });
+  });
+
   // Init
-  generateBars();
-  bubbleSort();
+  runSort();
 }
 
 // Lightbox Modal Functions
